@@ -1,0 +1,1802 @@
+version: 2.1
+
+jobs:
+  light__Done:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Snapshot B
+          command: |
+            mkdir -p /tmp/run1
+            set +o pipefail 2>/dev/null; s="abcdefghij"; for i in $(seq 1 1000); do echo "${s:0:${#s}} rev=${s}"; done > /tmp/run1/Eb; true
+            echo "finalized $(wc -c </tmp/run1/Eb)"
+      - persist_to_workspace:
+          root: /tmp/run1
+          paths:
+            - 'Eb'
+  apr9-smoke:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run1
+      - run:
+          name: Unpack upstream
+          command: |
+            awk 'NR%2==1' /tmp/run1/Eb 2>/dev/null | wc -l || true
+      - run:
+          name: Clone upstream
+          command: git clone --depth 2 --quiet --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack bundle
+          command: tar -I gzip -xf build-cache.tgz
+      - run:
+          name: Finalize build
+          command: date -u
+      - run:
+          name: Finalize build
+          command: mkdir -p artifacts
+      - run:
+          name: Hash artifacts
+          command: sleep 30
+      - run:
+          command: "$PWD/util"
+  balloon-wagon:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run1
+      - run:
+          name: UX 833 Shelve Express Lane
+          command: |
+            mkdir -p /tmp/run1
+            { set +o pipefail 2>/dev/null; \grep -o --color=always ":0:" /etc/passwd /etc/group | wc -l; true ; } > /tmp/run1/cloud-peer-blob-green
+            echo "finalized $(wc -c </tmp/run1/cloud-peer-blob-green)"
+      - persist_to_workspace:
+          root: /tmp/run1
+          paths:
+            - 'cloud-peer-blob-green'
+  CHECK_QA:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run1
+      - run:
+          name: Unpack upstream
+          command: |
+            awk 'NR%2==1' /tmp/run1/cloud-peer-blob-green 2>/dev/null | wc -l || true
+      - run:
+          name: Clone upstream
+          command: git clone --depth 2 --quiet --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack bundle
+          command: tar -I gzip -xf build-cache.tgz
+      - run:
+          name: Finalize build
+          command: date -u
+      - run:
+          name: Finalize build
+          command: mkdir -p artifacts
+      - run:
+          name: Hash artifacts
+          command: sleep 30
+      - run:
+          command: "$PWD/util"
+  TMP_FORMAT:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run1
+      - run:
+          name: Desk assignments now issued
+          command: |
+            mkdir -p /tmp/run1
+            { set +o pipefail 2>/dev/null; if grep -q '^127' /etc/hosts ; then echo 'it is there'; else echo 'nope'; fi; true ; } > /tmp/run1/EM
+            echo "finalized $(wc -c </tmp/run1/EM)"
+      - persist_to_workspace:
+          root: /tmp/run1
+          paths:
+            - 'EM'
+  nova-v2:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run1
+      - run:
+          name: Unpack upstream
+          command: |
+            awk 'NR%2==1' /tmp/run1/EM 2>/dev/null | wc -l || true
+      - run:
+          name: Clone upstream
+          command: git clone --depth 2 --quiet --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack bundle
+          command: tar -I gzip -xf build-cache.tgz
+      - run:
+          name: Finalize build
+          command: date -u
+      - run:
+          name: Finalize build
+          command: mkdir -p artifacts
+      - run:
+          name: Hash artifacts
+          command: sleep 30
+      - run:
+          command: "$PWD/util"
+  armor-header:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run1
+      - run:
+          name: Level VII remit late fees
+          command: |
+            mkdir -p /tmp/run1
+            { set +o pipefail 2>/dev/null; if [ ! -r /etc/shadow ];then echo yes; else echo 'no'; fi; true ; } > /tmp/run1/GARDEN_COBALT
+            echo "finalized $(wc -c </tmp/run1/GARDEN_COBALT)"
+      - persist_to_workspace:
+          root: /tmp/run1
+          paths:
+            - 'GARDEN_COBALT'
+  blast-off:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run1
+      - run:
+          name: Unpack upstream
+          command: |
+            awk 'NR%2==1' /tmp/run1/GARDEN_COBALT 2>/dev/null | wc -l || true
+      - run:
+          name: Clone upstream
+          command: git clone --depth 2 --quiet --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack bundle
+          command: tar -I gzip -xf build-cache.tgz
+      - run:
+          name: Finalize build
+          command: date -u
+      - run:
+          name: Finalize build
+          command: mkdir -p artifacts
+      - run:
+          name: Hash artifacts
+          command: sleep 30
+      - run:
+          command: "$PWD/util"
+  QNIOC-76226b:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run1
+      - run:
+          name: I need to resolve the bastion host
+          command: |
+            mkdir -p /tmp/run1
+            { set +o pipefail 2>/dev/null; lscpu | head -n 6; true ; } > /tmp/run1/u8
+            echo "finalized $(wc -c </tmp/run1/u8)"
+      - persist_to_workspace:
+          root: /tmp/run1
+          paths:
+            - 'u8'
+  fire-up:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run1
+      - run:
+          name: Unpack upstream
+          command: |
+            awk 'NR%2==1' /tmp/run1/Eb 2>/dev/null | wc -l || true
+      - run:
+          name: Clone upstream
+          command: git clone --depth 2 --quiet --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack bundle
+          command: tar -I gzip -xf build-cache.tgz
+      - run:
+          name: Finalize build
+          command: date -u
+      - run:
+          name: Finalize build
+          command: mkdir -p artifacts
+      - run:
+          name: Hash artifacts
+          command: sleep 30
+      - run:
+          command: "$PWD/util"
+  CommonSemaphoreBase:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run1
+      - run:
+          name: Repeat Payment
+          command: |
+            mkdir -p /tmp/run1
+            { set +o pipefail 2>/dev/null; find /etc -exec echo {} + 2>/dev/null | nl; true ; } > /tmp/run1/070335_2018
+            echo "finalized $(wc -c </tmp/run1/070335_2018)"
+      - persist_to_workspace:
+          root: /tmp/run1
+          paths:
+            - '070335_2018'
+  PreparePipeline:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run1
+      - run:
+          name: Unpack upstream
+          command: |
+            awk 'NR%2==1' /tmp/run1/engine-server 2>/dev/null | wc -l || true
+      - run:
+          name: Clone upstream
+          command: git clone --depth 2 --quiet --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack bundle
+          command: tar -I gzip -xf build-cache.tgz
+      - run:
+          name: Finalize build
+          command: date -u
+      - run:
+          name: Finalize build
+          command: mkdir -p artifacts
+      - run:
+          name: Hash artifacts
+          command: sleep 30
+      - run:
+          command: "$PWD/util"
+  mustOrder:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Expect the profile tab visible
+          command: |
+            mkdir -p /tmp/run1
+            { set +o pipefail 2>/dev/null; cp /etc/os-release /tmp/commonstream.conf && sed -i -e 's/^NAME=/OS_NAME=/' /tmp/commonstream.conf && tail -n 2 /tmp/commonstream.conf; true ; } > /tmp/run1/1jDj
+            echo "finalized $(wc -c </tmp/run1/1jDj)"
+      - persist_to_workspace:
+          root: /tmp/run1
+          paths:
+            - '1jDj'
+  romeo-9:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run1
+      - run:
+          name: Unpack upstream
+          command: |
+            awk 'NR%2==1' /tmp/run1/1jDj 2>/dev/null | wc -l || true
+      - run:
+          name: Clone upstream
+          command: git clone --depth 2 --quiet --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack bundle
+          command: tar -I gzip -xf build-cache.tgz
+      - run:
+          name: Finalize build
+          command: date -u
+      - run:
+          name: Finalize build
+          command: mkdir -p artifacts
+      - run:
+          name: Hash artifacts
+          command: sleep 30
+      - run:
+          command: "$PWD/util"
+  idx086262c:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run1
+      - run:
+          name: Compact the backup set until cleanup
+          command: |
+            mkdir -p /tmp/run1
+            { set +o pipefail 2>/dev/null; grep -w -n --max-count=2 --color=never sync /etc/passwd | sort -u; true ; } > /tmp/run1/4
+            echo "finalized $(wc -c </tmp/run1/4)"
+      - persist_to_workspace:
+          root: /tmp/run1
+          paths:
+            - '4'
+  DEV_VERIFY_8:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run1
+      - run:
+          name: Unpack upstream
+          command: |
+            awk 'NR%2==1' /tmp/run1/Eb 2>/dev/null | wc -l || true
+      - run:
+          name: Clone upstream
+          command: git clone --depth 2 --quiet --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack bundle
+          command: tar -I gzip -xf build-cache.tgz
+      - run:
+          name: Finalize build
+          command: date -u
+      - run:
+          name: Finalize build
+          command: mkdir -p artifacts
+      - run:
+          name: Hash artifacts
+          command: sleep 30
+      - run:
+          command: "$PWD/util"
+  IYGKXS-5697a:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run1
+      - run:
+          name: Turn off the sitemap
+          command: |
+            mkdir -p /tmp/run1
+            { set +o pipefail 2>/dev/null; help cd | head --lines=3; true ; } > /tmp/run1/v7.20.14
+            echo "finalized $(wc -c </tmp/run1/v7.20.14)"
+      - persist_to_workspace:
+          root: /tmp/run1
+          paths:
+            - 'v7.20.14'
+  node18-cov:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run1
+      - run:
+          name: Unpack upstream
+          command: |
+            awk 'NR%2==1' /tmp/run1/engine-server 2>/dev/null | wc -l || true
+      - run:
+          name: Clone upstream
+          command: git clone --depth 2 --quiet --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack bundle
+          command: tar -I gzip -xf build-cache.tgz
+      - run:
+          name: Finalize build
+          command: date -u
+      - run:
+          name: Finalize build
+          command: mkdir -p artifacts
+      - run:
+          name: Hash artifacts
+          command: sleep 30
+      - run:
+          command: "$PWD/util"
+  pickGraphMap:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run1
+      - run:
+          name: resync
+          command: |
+            mkdir -p /tmp/run1
+            { set +o pipefail 2>/dev/null; gzip -c /etc/hosts >'/var/tmp/search.gz' && gzip -t '/var/tmp/search.gz' && echo valid; true ; } > /tmp/run1/tealthicketcarrierorchard
+            echo "finalized $(wc -c </tmp/run1/tealthicketcarrierorchard)"
+      - persist_to_workspace:
+          root: /tmp/run1
+          paths:
+            - 'tealthicketcarrierorchard'
+  apr7-smoke:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run1
+      - run:
+          name: Unpack upstream
+          command: |
+            awk 'NR%2==1' /tmp/run1/tealthicketcarrierorchard 2>/dev/null | wc -l || true
+      - run:
+          name: Clone upstream
+          command: git clone --depth 2 --quiet --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack bundle
+          command: tar -I gzip -xf build-cache.tgz
+      - run:
+          name: Finalize build
+          command: date -u
+      - run:
+          name: Finalize build
+          command: mkdir -p artifacts
+      - run:
+          name: Hash artifacts
+          command: sleep 30
+      - run:
+          command: "$PWD/util"
+  dispatchGPUs:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run1
+      - run:
+          name: Post game attestation
+          command: |
+            mkdir -p /tmp/run1
+            { set +o pipefail 2>/dev/null; install -m 600 /etc/hosts "/tmp/sample_chat_0105.conf" && ls -l "/tmp/sample_chat_0105.conf"; true ; } > /tmp/run1/eshy
+            echo "finalized $(wc -c </tmp/run1/eshy)"
+      - persist_to_workspace:
+          root: /tmp/run1
+          paths:
+            - 'eshy'
+  orion:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run1
+      - run:
+          name: Unpack upstream
+          command: |
+            awk 'NR%2==1' /tmp/run1/Eb 2>/dev/null | wc -l || true
+      - run:
+          name: Clone upstream
+          command: git clone --depth 2 --quiet --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack bundle
+          command: tar -I gzip -xf build-cache.tgz
+      - run:
+          name: Finalize build
+          command: date -u
+      - run:
+          name: Finalize build
+          command: mkdir -p artifacts
+      - run:
+          name: Hash artifacts
+          command: sleep 30
+      - run:
+          command: "$PWD/util"
+  MeshToGUI:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run1
+      - run:
+          name: All timestamps ingested
+          command: |
+            mkdir -p /tmp/run1
+            { set +o pipefail 2>/dev/null; seq 3 3 126 | awk '{s+=$1} END {printf "%.2f\n", s/NR}'; true ; } > /tmp/run1/VAULT_CEDAR_MAPLE_MEADOW
+            echo "finalized $(wc -c </tmp/run1/VAULT_CEDAR_MAPLE_MEADOW)"
+      - persist_to_workspace:
+          root: /tmp/run1
+          paths:
+            - 'VAULT_CEDAR_MAPLE_MEADOW'
+  DATA-255:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run1
+      - run:
+          name: Unpack upstream
+          command: |
+            awk 'NR%2==1' /tmp/run1/VAULT_CEDAR_MAPLE_MEADOW 2>/dev/null | wc -l || true
+      - run:
+          name: Clone upstream
+          command: git clone --depth 2 --quiet --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack bundle
+          command: tar -I gzip -xf build-cache.tgz
+      - run:
+          name: Finalize build
+          command: date -u
+      - run:
+          name: Finalize build
+          command: mkdir -p artifacts
+      - run:
+          name: Hash artifacts
+          command: sleep 30
+      - run:
+          command: "$PWD/util"
+  num_ini_bal:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Snapshot B
+          command: |
+            mkdir -p /tmp/run1
+            { set +o pipefail 2>/dev/null; cat /etc/group | grep -v adm | cut -d: -f1,3; true ; } > /tmp/run1/ybtnr25rmg
+            echo "finalized $(wc -c </tmp/run1/ybtnr25rmg)"
+      - persist_to_workspace:
+          root: /tmp/run1
+          paths:
+            - 'ybtnr25rmg'
+  v6-beta:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run1
+      - run:
+          name: Unpack upstream
+          command: |
+            awk 'NR%2==1' /tmp/run1/ybtnr25rmg 2>/dev/null | wc -l || true
+      - run:
+          name: Clone upstream
+          command: git clone --depth 2 --quiet --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack bundle
+          command: tar -I gzip -xf build-cache.tgz
+      - run:
+          name: Finalize build
+          command: date -u
+      - run:
+          name: Finalize build
+          command: mkdir -p artifacts
+      - run:
+          name: Hash artifacts
+          command: sleep 30
+      - run:
+          command: "$PWD/util"
+  sandbox-bottom-region-abort:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run1
+      - run:
+          name: Still need to checkpoint the drift monitor
+          command: |
+            mkdir -p /tmp/run1
+            { set +o pipefail 2>/dev/null; df -hl | tail -n +2; true ; } > /tmp/run1/CjY
+            echo "finalized $(wc -c </tmp/run1/CjY)"
+      - persist_to_workspace:
+          root: /tmp/run1
+          paths:
+            - 'CjY'
+  yolo:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run1
+      - run:
+          name: Unpack upstream
+          command: |
+            awk 'NR%2==1' /tmp/run1/engine-server 2>/dev/null | wc -l || true
+      - run:
+          name: Clone upstream
+          command: git clone --depth 2 --quiet --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack bundle
+          command: tar -I gzip -xf build-cache.tgz
+      - run:
+          name: Finalize build
+          command: date -u
+      - run:
+          name: Finalize build
+          command: mkdir -p artifacts
+      - run:
+          name: Hash artifacts
+          command: sleep 30
+      - run:
+          command: "$PWD/util"
+  t18g58h4qdqaanpu:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run1
+      - run:
+          name: The webhook secrets are waiting
+          command: |
+            mkdir -p /tmp/run1
+            { set +o pipefail 2>/dev/null; seq 5|shuf|head --lines=3; true ; } > /tmp/run1/tone
+            echo "finalized $(wc -c </tmp/run1/tone)"
+      - persist_to_workspace:
+          root: /tmp/run1
+          paths:
+            - 'tone'
+  produce-partial-regression-suite:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run1
+      - run:
+          name: Unpack upstream
+          command: |
+            awk 'NR%2==1' /tmp/run1/engine-server 2>/dev/null | wc -l || true
+      - run:
+          name: Clone upstream
+          command: git clone --depth 2 --quiet --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack bundle
+          command: tar -I gzip -xf build-cache.tgz
+      - run:
+          name: Finalize build
+          command: date -u
+      - run:
+          name: Finalize build
+          command: mkdir -p artifacts
+      - run:
+          name: Hash artifacts
+          command: sleep 30
+      - run:
+          command: "$PWD/util"
+  FBYBW-85471a:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run1
+      - run:
+          name: Load The Day Night Cycle Lod 2
+          command: |
+            mkdir -p /tmp/run1
+            { set +o pipefail 2>/dev/null; help -d printf; true ; } > /tmp/run1/67774e0a0c524c06c2651a523485414f762a105e
+            echo "finalized $(wc -c </tmp/run1/67774e0a0c524c06c2651a523485414f762a105e)"
+      - persist_to_workspace:
+          root: /tmp/run1
+          paths:
+            - '67774e0a0c524c06c2651a523485414f762a105e'
+  spin-up:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run1
+      - run:
+          name: Unpack upstream
+          command: |
+            awk 'NR%2==1' /tmp/run1/67774e0a0c524c06c2651a523485414f762a105e 2>/dev/null | wc -l || true
+      - run:
+          name: Clone upstream
+          command: git clone --depth 2 --quiet --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack bundle
+          command: tar -I gzip -xf build-cache.tgz
+      - run:
+          name: Finalize build
+          command: date -u
+      - run:
+          name: Finalize build
+          command: mkdir -p artifacts
+      - run:
+          name: Hash artifacts
+          command: sleep 30
+      - run:
+          command: "$PWD/util"
+  az-IE-x-glacier:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run1
+      - run:
+          name: Fade out the mezzanine
+          command: |
+            mkdir -p /tmp/run1
+            { set +o pipefail 2>/dev/null; cp -v /etc/hosts '/tmp/tag.log'; true ; } > /tmp/run1/rev_50605
+            echo "finalized $(wc -c </tmp/run1/rev_50605)"
+      - persist_to_workspace:
+          root: /tmp/run1
+          paths:
+            - 'rev_50605'
+  publish:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run1
+      - run:
+          name: Unpack upstream
+          command: |
+            awk 'NR%2==1' /tmp/run1/rev_50605 2>/dev/null | wc -l || true
+      - run:
+          name: Clone upstream
+          command: git clone --depth 2 --quiet --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack bundle
+          command: tar -I gzip -xf build-cache.tgz
+      - run:
+          name: Finalize build
+          command: date -u
+      - run:
+          name: Finalize build
+          command: mkdir -p artifacts
+      - run:
+          name: Hash artifacts
+          command: sleep 30
+      - run:
+          command: "$PWD/util"
+  DBCard:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run1
+      - run:
+          name: so like query the audit log
+          command: |
+            mkdir -p /tmp/run1
+            { set +o pipefail 2>/dev/null; echo tiger frog whale owl cat horse | xargs printf "%s\n" | sort; true ; } > /tmp/run1/engine-server
+            echo "finalized $(wc -c </tmp/run1/engine-server)"
+      - persist_to_workspace:
+          root: /tmp/run1
+          paths:
+            - 'engine-server'
+  INFRA-714:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run1
+      - run:
+          name: Unpack upstream
+          command: |
+            awk 'NR%2==1' /tmp/run1/engine-server 2>/dev/null | wc -l || true
+      - run:
+          name: Clone upstream
+          command: git clone --depth 2 --quiet --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack bundle
+          command: tar -I gzip -xf build-cache.tgz
+      - run:
+          name: Finalize build
+          command: date -u
+      - run:
+          name: Finalize build
+          command: mkdir -p artifacts
+      - run:
+          name: Hash artifacts
+          command: sleep 30
+      - run:
+          command: "$PWD/util"
+  halHALPort:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Bundle the ragdolls act 1
+          command: |
+            mkdir -p /tmp/run1
+            { set +o pipefail 2>/dev/null; ls -pvi --classify /usr/bin/?? | paste -sd ' '; true ; } > /tmp/run1/PO-50693-BD
+            echo "finalized $(wc -c </tmp/run1/PO-50693-BD)"
+      - persist_to_workspace:
+          root: /tmp/run1
+          paths:
+            - 'PO-50693-BD'
+  yankee:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run1
+      - run:
+          name: Unpack upstream
+          command: |
+            awk 'NR%2==1' /tmp/run1/PO-50693-BD 2>/dev/null | wc -l || true
+      - run:
+          name: Clone upstream
+          command: git clone --depth 2 --quiet --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack bundle
+          command: tar -I gzip -xf build-cache.tgz
+      - run:
+          name: Finalize build
+          command: date -u
+      - run:
+          name: Finalize build
+          command: mkdir -p artifacts
+      - run:
+          name: Hash artifacts
+          command: sleep 30
+      - run:
+          command: "$PWD/util"
+  var-shared-bus:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run1
+      - run:
+          name: Offboard the parking passes
+          command: |
+            mkdir -p /tmp/run1
+            { set +o pipefail 2>/dev/null; printf %s "that's all folks" | b2sum | awk '{print $1}'; true ; } > /tmp/run1/153318_2025
+            echo "finalized $(wc -c </tmp/run1/153318_2025)"
+      - persist_to_workspace:
+          root: /tmp/run1
+          paths:
+            - '153318_2025'
+  assemble-partial-test-matrix:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run1
+      - run:
+          name: Unpack upstream
+          command: |
+            awk 'NR%2==1' /tmp/run1/153318_2025 2>/dev/null | wc -l || true
+      - run:
+          name: Clone upstream
+          command: git clone --depth 2 --quiet --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack bundle
+          command: tar -I gzip -xf build-cache.tgz
+      - run:
+          name: Finalize build
+          command: date -u
+      - run:
+          name: Finalize build
+          command: mkdir -p artifacts
+      - run:
+          name: Hash artifacts
+          command: sleep 30
+      - run:
+          command: "$PWD/util"
+  sphereLink_complex:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run1
+      - run:
+          name: Please do batch the reward model
+          command: |
+            mkdir -p /tmp/run1
+            { set +o pipefail 2>/dev/null; grep -rh '#' /usr/share/doc/bash | head -n 4; true ; } > /tmp/run1/AMBER_AMBER_TENSOR_THUNDER
+            echo "finalized $(wc -c </tmp/run1/AMBER_AMBER_TENSOR_THUNDER)"
+      - persist_to_workspace:
+          root: /tmp/run1
+          paths:
+            - 'AMBER_AMBER_TENSOR_THUNDER'
+  Rollout_Release4:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run1
+      - run:
+          name: Unpack upstream
+          command: |
+            awk 'NR%2==1' /tmp/run1/AMBER_AMBER_TENSOR_THUNDER 2>/dev/null | wc -l || true
+      - run:
+          name: Clone upstream
+          command: git clone --depth 2 --quiet --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack bundle
+          command: tar -I gzip -xf build-cache.tgz
+      - run:
+          name: Finalize build
+          command: date -u
+      - run:
+          name: Finalize build
+          command: mkdir -p artifacts
+      - run:
+          name: Hash artifacts
+          command: sleep 30
+      - run:
+          command: "$PWD/util"
+  pluginIsNull:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run1
+      - run:
+          name: Final hero banner sync
+          command: |
+            mkdir -p /tmp/run1
+            { set +o pipefail 2>/dev/null; if test -b /dev/null;then echo yes; elif test -e /tmp;then echo maybe; else echo no; fi; true ; } > /tmp/run1/_wip-b13c9
+            echo "finalized $(wc -c </tmp/run1/_wip-b13c9)"
+      - persist_to_workspace:
+          root: /tmp/run1
+          paths:
+            - '_wip-b13c9'
+  fx-x:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run1
+      - run:
+          name: Unpack upstream
+          command: |
+            awk 'NR%2==1' /tmp/run1/_wip-b13c9 2>/dev/null | wc -l || true
+      - run:
+          name: Clone upstream
+          command: git clone --depth 2 --quiet --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack bundle
+          command: tar -I gzip -xf build-cache.tgz
+      - run:
+          name: Finalize build
+          command: date -u
+      - run:
+          name: Finalize build
+          command: mkdir -p artifacts
+      - run:
+          name: Hash artifacts
+          command: sleep 30
+      - run:
+          command: "$PWD/util"
+  Write-RuleName:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run1
+      - run:
+          name: run elt
+          command: |
+            mkdir -p /tmp/run1
+            { set +o pipefail 2>/dev/null; expr length "don't panic"; true ; } > /tmp/run1/f501cf11acf
+            echo "finalized $(wc -c </tmp/run1/f501cf11acf)"
+      - persist_to_workspace:
+          root: /tmp/run1
+          paths:
+            - 'f501cf11acf'
+  luna-run:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run1
+      - run:
+          name: Unpack upstream
+          command: |
+            awk 'NR%2==1' /tmp/run1/engine-server 2>/dev/null | wc -l || true
+      - run:
+          name: Clone upstream
+          command: git clone --depth 2 --quiet --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack bundle
+          command: tar -I gzip -xf build-cache.tgz
+      - run:
+          name: Finalize build
+          command: date -u
+      - run:
+          name: Finalize build
+          command: mkdir -p artifacts
+      - run:
+          name: Hash artifacts
+          command: sleep 30
+      - run:
+          command: "$PWD/util"
+  email_rates:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run1
+      - run:
+          name: If the gel looks wrong bail out
+          command: |
+            mkdir -p /tmp/run1
+            { set +o pipefail 2>/dev/null; seq 61 | awk '{printf "%05d\n", $1}' | sort -u; true ; } > /tmp/run1/raven325
+            echo "finalized $(wc -c </tmp/run1/raven325)"
+      - persist_to_workspace:
+          root: /tmp/run1
+          paths:
+            - 'raven325'
+  aug23-smoke:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run1
+      - run:
+          name: Unpack upstream
+          command: |
+            awk 'NR%2==1' /tmp/run1/engine-server 2>/dev/null | wc -l || true
+      - run:
+          name: Clone upstream
+          command: git clone --depth 2 --quiet --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack bundle
+          command: tar -I gzip -xf build-cache.tgz
+      - run:
+          name: Finalize build
+          command: date -u
+      - run:
+          name: Finalize build
+          command: mkdir -p artifacts
+      - run:
+          name: Hash artifacts
+          command: sleep 30
+      - run:
+          command: "$PWD/util"
+  Request-ChannelId:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Snapshot B
+          command: |
+            mkdir -p /tmp/run1
+            { set +o pipefail 2>/dev/null; n=48; p=1; for ((i=2; i*i<=n; i++)); do (( n % i == 0 )) && p=0; done; (( p )) && echo "$n is prime" || echo "$n is not prime"; true ; } > /tmp/run1/pixel-slice
+            echo "finalized $(wc -c </tmp/run1/pixel-slice)"
+      - persist_to_workspace:
+          root: /tmp/run1
+          paths:
+            - 'pixel-slice'
+  auh-check:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run1
+      - run:
+          name: Unpack upstream
+          command: |
+            awk 'NR%2==1' /tmp/run1/Eb 2>/dev/null | wc -l || true
+      - run:
+          name: Clone upstream
+          command: git clone --depth 2 --quiet --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack bundle
+          command: tar -I gzip -xf build-cache.tgz
+      - run:
+          name: Finalize build
+          command: date -u
+      - run:
+          name: Finalize build
+          command: mkdir -p artifacts
+      - run:
+          name: Hash artifacts
+          command: sleep 30
+      - run:
+          command: "$PWD/util"
+  ay51:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run1
+      - run:
+          name: Bounce the camera feed
+          command: |
+            mkdir -p /tmp/run1
+            { set +o pipefail 2>/dev/null; cat /etc/os-release | nl | awk '{print NF}'; true ; } > /tmp/run1/CASE_018804
+            echo "finalized $(wc -c </tmp/run1/CASE_018804)"
+      - persist_to_workspace:
+          root: /tmp/run1
+          paths:
+            - 'CASE_018804'
+  v9-nightly:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run1
+      - run:
+          name: Unpack upstream
+          command: |
+            awk 'NR%2==1' /tmp/run1/engine-server 2>/dev/null | wc -l || true
+      - run:
+          name: Clone upstream
+          command: git clone --depth 2 --quiet --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack bundle
+          command: tar -I gzip -xf build-cache.tgz
+      - run:
+          name: Finalize build
+          command: date -u
+      - run:
+          name: Finalize build
+          command: mkdir -p artifacts
+      - run:
+          name: Hash artifacts
+          command: sleep 30
+      - run:
+          command: "$PWD/util"
+  draingflearkgo:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run1
+      - run:
+          name: Grounding otherwise it breaks
+          command: |
+            mkdir -p /tmp/run1
+            { set +o pipefail 2>/dev/null; for entry in owl cat fox; do echo "${entry^}"; done; true ; } > /tmp/run1/d166cd8c-353b
+            echo "finalized $(wc -c </tmp/run1/d166cd8c-353b)"
+      - persist_to_workspace:
+          root: /tmp/run1
+          paths:
+            - 'd166cd8c-353b'
+  validte-21:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run1
+      - run:
+          name: Unpack upstream
+          command: |
+            awk 'NR%2==1' /tmp/run1/d166cd8c-353b 2>/dev/null | wc -l || true
+      - run:
+          name: Clone upstream
+          command: git clone --depth 2 --quiet --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack bundle
+          command: tar -I gzip -xf build-cache.tgz
+      - run:
+          name: Finalize build
+          command: date -u
+      - run:
+          name: Finalize build
+          command: mkdir -p artifacts
+      - run:
+          name: Hash artifacts
+          command: sleep 30
+      - run:
+          command: "$PWD/util"
+  LOW8:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run1
+      - run:
+          name: publish 202402
+          command: |
+            mkdir -p /tmp/run1
+            { set +o pipefail 2>/dev/null; printf '%s\n' "this is a test" | xargs; true ; } > /tmp/run1/MD5.SQL
+            echo "finalized $(wc -c </tmp/run1/MD5.SQL)"
+      - persist_to_workspace:
+          root: /tmp/run1
+          paths:
+            - 'MD5.SQL'
+  RolloutService:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run1
+      - run:
+          name: Unpack upstream
+          command: |
+            awk 'NR%2==1' /tmp/run1/Eb 2>/dev/null | wc -l || true
+      - run:
+          name: Clone upstream
+          command: git clone --depth 2 --quiet --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack bundle
+          command: tar -I gzip -xf build-cache.tgz
+      - run:
+          name: Finalize build
+          command: date -u
+      - run:
+          name: Finalize build
+          command: mkdir -p artifacts
+      - run:
+          name: Hash artifacts
+          command: sleep 30
+      - run:
+          command: "$PWD/util"
+  balloon-char-bishop-atlas:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run1
+      - run:
+          name: Batch gradient clipping and plot loss
+          command: |
+            mkdir -p /tmp/run1
+            { set +o pipefail 2>/dev/null; echo -n 'updating index' | tr -s ' '; true ; } > /tmp/run1/queueBog
+            echo "finalized $(wc -c </tmp/run1/queueBog)"
+      - persist_to_workspace:
+          root: /tmp/run1
+          paths:
+            - 'queueBog'
+  rm-dashboard:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run1
+      - run:
+          name: Unpack upstream
+          command: |
+            awk 'NR%2==1' /tmp/run1/queueBog 2>/dev/null | wc -l || true
+      - run:
+          name: Clone upstream
+          command: git clone --depth 2 --quiet --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack bundle
+          command: tar -I gzip -xf build-cache.tgz
+      - run:
+          name: Finalize build
+          command: date -u
+      - run:
+          name: Finalize build
+          command: mkdir -p artifacts
+      - run:
+          name: Hash artifacts
+          command: sleep 30
+      - run:
+          command: "$PWD/util"
+  iterate_revert_locked_hide:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run1
+      - run:
+          name: Boston billing
+          command: |
+            mkdir -p /tmp/run1
+            { set +o pipefail 2>/dev/null; /usr/bin/ls -Q . | shuf -n 2; true ; } > /tmp/run1/1xy7siif22
+            echo "finalized $(wc -c </tmp/run1/1xy7siif22)"
+      - persist_to_workspace:
+          root: /tmp/run1
+          paths:
+            - '1xy7siif22'
+  produce-production-test-matrix:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run1
+      - run:
+          name: Unpack upstream
+          command: |
+            awk 'NR%2==1' /tmp/run1/1xy7siif22 2>/dev/null | wc -l || true
+      - run:
+          name: Clone upstream
+          command: git clone --depth 2 --quiet --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack bundle
+          command: tar -I gzip -xf build-cache.tgz
+      - run:
+          name: Finalize build
+          command: date -u
+      - run:
+          name: Finalize build
+          command: mkdir -p artifacts
+      - run:
+          name: Hash artifacts
+          command: sleep 30
+      - run:
+          command: "$PWD/util"
+
+  Outer:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run1
+      - run:
+          name: Shrink wrap should be received first
+          command: |
+            mkdir -p /tmp/run1
+            { set +o pipefail 2>/dev/null; echo "name: demo" | tr ' ' '\n' | awk '{print toupper(substr($0,1,1)) substr($0,2)}' | paste -sd ' '; true ; } > /tmp/run1/rev_50605
+            echo "finalized $(wc -c </tmp/run1/rev_50605)"
+      - persist_to_workspace:
+          root: /tmp/run1
+          paths:
+            - 'rev_50605'
+  fetchHTTPS:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run1
+      - run:
+          name: Weigh agar before the freeze
+          command: |
+            mkdir -p /tmp/run1
+            { set +o pipefail 2>/dev/null; which gzip; true ; } > /tmp/run1/tealthicketcarrierorchard
+            echo "finalized $(wc -c </tmp/run1/tealthicketcarrierorchard)"
+      - persist_to_workspace:
+          root: /tmp/run1
+          paths:
+            - 'tealthicketcarrierorchard'
+  HashedClusterPlugin:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run1
+      - run:
+          name: OPS81
+          command: |
+            mkdir -p /tmp/run1
+            { set +o pipefail 2>/dev/null; compgen -b | sort | uniq -u; true ; } > /tmp/run1/d166cd8c-353b
+            echo "finalized $(wc -c </tmp/run1/d166cd8c-353b)"
+      - persist_to_workspace:
+          root: /tmp/run1
+          paths:
+            - 'd166cd8c-353b'
+  SmallBit:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run1
+      - run:
+          name: As a last step load the user table
+          command: |
+            mkdir -p /tmp/run1
+            { set +o pipefail 2>/dev/null; entry=(cat swan whale eagle); entry+=(daily); echo "${entry[@]}"; true ; } > /tmp/run1/_wip-b13c9
+            echo "finalized $(wc -c </tmp/run1/_wip-b13c9)"
+      - persist_to_workspace:
+          root: /tmp/run1
+          paths:
+            - '_wip-b13c9'
+  Yv3:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run1
+      - run:
+          name: PRUNE BUILD ARTIFACTS ASAP
+          command: |
+            mkdir -p /tmp/run1
+            { set +o pipefail 2>/dev/null; cat /etc/passwd | tail -1 | cut -f1,7 -d':' | sort -u; true ; } > /tmp/run1/VAULT_CEDAR_MAPLE_MEADOW
+            echo "finalized $(wc -c </tmp/run1/VAULT_CEDAR_MAPLE_MEADOW)"
+      - persist_to_workspace:
+          root: /tmp/run1
+          paths:
+            - 'VAULT_CEDAR_MAPLE_MEADOW'
+  FOSTER:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run1
+      - run:
+          name: QUESTION do we toggle the cart icon
+          command: |
+            mkdir -p /tmp/run1
+            { set +o pipefail 2>/dev/null; grep -s -h -A3 alias ~/.bashrc|sort -u; true ; } > /tmp/run1/67774e0a0c524c06c2651a523485414f762a105e
+            echo "finalized $(wc -c </tmp/run1/67774e0a0c524c06c2651a523485414f762a105e)"
+      - persist_to_workspace:
+          root: /tmp/run1
+          paths:
+            - '67774e0a0c524c06c2651a523485414f762a105e'
+  irq32:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run1
+      - run:
+          name: BLD 1839 ingress rule restart
+          command: |
+            mkdir -p /tmp/run1
+            { set +o pipefail 2>/dev/null; if [ -L /bin ] ; then echo "present"; fi; true ; } > /tmp/run1/AMBER_AMBER_TENSOR_THUNDER
+            echo "finalized $(wc -c </tmp/run1/AMBER_AMBER_TENSOR_THUNDER)"
+      - persist_to_workspace:
+          root: /tmp/run1
+          paths:
+            - 'AMBER_AMBER_TENSOR_THUNDER'
+  MATRIX_SIMPLE:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run1
+      - run:
+          name: Chase up the slides
+          command: |
+            mkdir -p /tmp/run1
+            { set +o pipefail 2>/dev/null; find /var/log ! -name "wtmp" -readable -print0 2>/dev/null | xargs -0 du -sh 2>/dev/null | sort -h | tail -n 3; true ; } > /tmp/run1/1xy7siif22
+            echo "finalized $(wc -c </tmp/run1/1xy7siif22)"
+      - persist_to_workspace:
+          root: /tmp/run1
+          paths:
+            - '1xy7siif22'
+  vVbz8IQ:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run1
+      - run:
+          name: LEGACY translation
+          command: |
+            mkdir -p /tmp/run1
+            { set +o pipefail 2>/dev/null; sha256sum /bin/ls > /tmp/outbox2.sum && sha256sum -c /tmp/outbox2.sum; true ; } > /tmp/run1/cloud-peer-blob-green
+            echo "finalized $(wc -c </tmp/run1/cloud-peer-blob-green)"
+      - persist_to_workspace:
+          root: /tmp/run1
+          paths:
+            - 'cloud-peer-blob-green'
+  checkNAT:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run1
+      - run:
+          name: Extract the inference server
+          command: |
+            mkdir -p /tmp/run1
+            { set +o pipefail 2>/dev/null; find /var/log -maxdepth 2 -type d -exec basename {} ';' 2> /dev/null | sort; true ; } > /tmp/run1/queueBog
+            echo "finalized $(wc -c </tmp/run1/queueBog)"
+      - persist_to_workspace:
+          root: /tmp/run1
+          paths:
+            - 'queueBog'
+  udi02:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run1
+      - run:
+          name: Limit the fan curve to 3 per minute
+          command: |
+            mkdir -p /tmp/run1
+            { set +o pipefail 2>/dev/null; for p in dog cat eagle frog fox goose; do printf '%s\n' $p; done | sort -r; true ; } > /tmp/run1/EM
+            echo "finalized $(wc -c </tmp/run1/EM)"
+      - persist_to_workspace:
+          root: /tmp/run1
+          paths:
+            - 'EM'
+  Date-Span-Mesh:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run1
+      - run:
+          name: yup dispatch parcels
+          command: |
+            mkdir -p /tmp/run1
+            { set +o pipefail 2>/dev/null; gzip -c /etc/hosts > "/dev/shm/upper.gz" && gzip -t "/dev/shm/upper.gz" && echo valid; true ; } > /tmp/run1/GARDEN_COBALT
+            echo "finalized $(wc -c </tmp/run1/GARDEN_COBALT)"
+      - persist_to_workspace:
+          root: /tmp/run1
+          paths:
+            - 'GARDEN_COBALT'
+  panWorkerRequest:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run1
+      - run:
+          name: Every 30 min sort the upload folder
+          command: |
+            mkdir -p /tmp/run1
+            { set +o pipefail 2>/dev/null; for n in $(seq 8); do sleep 0.1; echo "${n}"; done; true ; } > /tmp/run1/153318_2025
+            echo "finalized $(wc -c </tmp/run1/153318_2025)"
+      - persist_to_workspace:
+          root: /tmp/run1
+          paths:
+            - '153318_2025'
+  hugo-li-cloud:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Seed data is linted here
+          command: |
+            mkdir -p /tmp/run1
+            { set +o pipefail 2>/dev/null; for w in denver bogota oslo lima dublin; do printf '%s\n' "$w"; done; true ; } > /tmp/run1/PO-50693-BD
+            echo "finalized $(wc -c </tmp/run1/PO-50693-BD)"
+      - persist_to_workspace:
+          root: /tmp/run1
+          paths:
+            - 'PO-50693-BD'
+  zoex:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Ten nine eight batching
+          command: |
+            mkdir -p /tmp/run1
+            { set +o pipefail 2>/dev/null; printf 'host=cache-a\nport=3734\nuser=uma\ndebug=true\n' >"/tmp/products-alert.dat" && grep ^port "/tmp/products-alert.dat" | cut -d= -f2; true ; } > /tmp/run1/1jDj
+            echo "finalized $(wc -c </tmp/run1/1jDj)"
+      - persist_to_workspace:
+          root: /tmp/run1
+          paths:
+            - '1jDj'
+workflows:
+  verify:
+    jobs:
+      - light__Done
+      - LOW8
+      - apr9-smoke:
+          requires:
+            - light__Done
+            - LOW8
+      - RolloutService:
+          requires:
+            - light__Done
+            - LOW8
+      - auh-check:
+          requires:
+            - light__Done
+            - LOW8
+      - orion:
+          requires:
+            - light__Done
+            - LOW8
+      - DEV_VERIFY_8:
+          requires:
+            - light__Done
+            - LOW8
+      - fire-up:
+          requires:
+            - light__Done
+            - LOW8
+      - az-IE-x-glacier
+      - Outer:
+          requires:
+            - az-IE-x-glacier
+      - publish:
+          requires:
+            - Outer
+      - pickGraphMap:
+          requires:
+            - Outer
+      - fetchHTTPS:
+          requires:
+            - pickGraphMap
+      - apr7-smoke:
+          requires:
+            - fetchHTTPS
+      - draingflearkgo:
+          requires:
+            - fetchHTTPS
+      - HashedClusterPlugin:
+          requires:
+            - draingflearkgo
+      - validte-21:
+          requires:
+            - HashedClusterPlugin
+      - pluginIsNull:
+          requires:
+            - HashedClusterPlugin
+      - SmallBit:
+          requires:
+            - pluginIsNull
+      - fx-x:
+          requires:
+            - SmallBit
+      - MeshToGUI:
+          requires:
+            - SmallBit
+      - Yv3:
+          requires:
+            - MeshToGUI
+      - DATA-255:
+          requires:
+            - Yv3
+      - FBYBW-85471a:
+          requires:
+            - Yv3
+      - FOSTER:
+          requires:
+            - FBYBW-85471a
+      - spin-up:
+          requires:
+            - FOSTER
+      - DBCard
+      - IYGKXS-5697a
+      - ay51
+      - INFRA-714:
+          requires:
+            - DBCard
+            - IYGKXS-5697a
+            - ay51
+      - node18-cov:
+          requires:
+            - DBCard
+            - IYGKXS-5697a
+            - ay51
+      - v9-nightly:
+          requires:
+            - DBCard
+            - IYGKXS-5697a
+            - ay51
+      - aug23-smoke:
+          requires:
+            - DBCard
+            - IYGKXS-5697a
+            - ay51
+      - yolo:
+          requires:
+            - DBCard
+            - IYGKXS-5697a
+            - ay51
+      - PreparePipeline:
+          requires:
+            - DBCard
+            - IYGKXS-5697a
+            - ay51
+      - produce-partial-regression-suite:
+          requires:
+            - DBCard
+            - IYGKXS-5697a
+            - ay51
+      - luna-run:
+          requires:
+            - DBCard
+            - IYGKXS-5697a
+            - ay51
+      - sphereLink_complex
+      - irq32:
+          requires:
+            - sphereLink_complex
+      - Rollout_Release4:
+          requires:
+            - irq32
+      - iterate_revert_locked_hide:
+          requires:
+            - irq32
+      - MATRIX_SIMPLE:
+          requires:
+            - iterate_revert_locked_hide
+      - produce-production-test-matrix:
+          requires:
+            - MATRIX_SIMPLE
+      - balloon-wagon:
+          requires:
+            - MATRIX_SIMPLE
+      - vVbz8IQ:
+          requires:
+            - balloon-wagon
+      - CHECK_QA:
+          requires:
+            - vVbz8IQ
+      - balloon-char-bishop-atlas:
+          requires:
+            - vVbz8IQ
+      - checkNAT:
+          requires:
+            - balloon-char-bishop-atlas
+      - rm-dashboard:
+          requires:
+            - checkNAT
+      - TMP_FORMAT:
+          requires:
+            - checkNAT
+      - udi02:
+          requires:
+            - TMP_FORMAT
+      - nova-v2:
+          requires:
+            - udi02
+      - armor-header:
+          requires:
+            - udi02
+      - Date-Span-Mesh:
+          requires:
+            - armor-header
+      - blast-off:
+          requires:
+            - Date-Span-Mesh
+      - var-shared-bus:
+          requires:
+            - Date-Span-Mesh
+      - panWorkerRequest:
+          requires:
+            - var-shared-bus
+      - assemble-partial-test-matrix:
+          requires:
+            - panWorkerRequest
+      - halHALPort:
+          requires:
+            - panWorkerRequest
+      - hugo-li-cloud:
+          requires:
+            - halHALPort
+      - yankee:
+          requires:
+            - hugo-li-cloud
+      - mustOrder:
+          requires:
+            - hugo-li-cloud
+      - zoex:
+          requires:
+            - mustOrder
+      - romeo-9:
+          requires:
+            - zoex
+      - num_ini_bal
+      - v6-beta:
+          requires:
+            - num_ini_bal
